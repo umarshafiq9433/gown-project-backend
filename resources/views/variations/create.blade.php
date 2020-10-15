@@ -6,7 +6,7 @@
     <div class="col-md-6 bg-white py-3 rounded mx-auto">
         <form action="/admin/variation/store" method="POST">
             @csrf
-            <input type="hidden" name="counts" id="count" value="">
+            <input type="hidden" name="counts" id="count" value="1">
             <div class="form-group">
                 <label for="name">Name of variation Piece</label>
                 <input type="text" class="form-control" id="name" name="name">

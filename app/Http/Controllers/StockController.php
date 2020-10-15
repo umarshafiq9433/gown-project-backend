@@ -11,4 +11,8 @@ class StockController extends Controller
         $variations = Variation::all();
         return view('stocks.create',compact('variations'));
     }
+
+    public function store(Request $request){
+        dd($request);
+    }
 }

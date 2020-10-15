@@ -52,7 +52,7 @@
                                     Actions
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item edit" href="#" data-toggle="modal" data-target="#Modal2">Edit</a>
+                                    <a class="dropdown-item edit" href="#" data-id="{{ $category->id }}" data-toggle="modal" data-target="#Modal2">Edit</a>
                                     <a class="dropdown-item delete" href="#" data-id="{{ $category->id }}" data-toggle="modal" data-target="#delete">Delete</a>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
     <script>
         $(document).ready(function () {
             $(".edit").on("click", function () {
-                $("#id").val($(this).parents("td.sibling").siblings("td.id").html());
+                $("#id").val($(this).data('id'));
                 $("#name").val($(this).parents("td.sibling").siblings("td.name").html());
             });
 

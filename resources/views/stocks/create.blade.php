@@ -21,7 +21,8 @@
     <div class="main-card col-md-6 mb-3 mx-auto card">
         <div class="card-body">
             <h5 class="card-title">Add Item details</h5>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" method="POST" action="/admin/stock/store" novalidate>
+                @csrf
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
                         <label for="customFile">Image</label>
@@ -47,25 +48,6 @@
                         <div class="valid-feedback">Looks good!</div>
                         <div class="invalid-feedback">Invalid Gown Name</div>
                     </div>
-                    <!--                    <div class="col-md-6 mb-3">-->
-                    <!--                      <label for="gown-size">Item Size</label>-->
-                    <!--                      <select-->
-                    <!--                        name="gownsize"-->
-                    <!--                        id="gown-size"-->
-                    <!--                        class="form-control"-->
-                    <!--                      >-->
-                    <!--                        <option selected disabled>Select Size</option>-->
-                    <!--                        <option>S</option>-->
-                    <!--                        <option>M</option>-->
-                    <!--                        <option>L</option>-->
-                    <!--                        <option>XL</option>-->
-                    <!--                        <option>UK7</option>-->
-                    <!--                        <option>USA6</option>-->
-                    <!--                        <option>EUR34</option>-->
-                    <!--                      </select>-->
-                    <!--                      <div class="valid-feedback">Looks good!</div>-->
-                    <!--                      <div class="invalid-feedback">Invalid Gown Size</div>-->
-                    <!--                    </div>-->
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
@@ -124,29 +106,31 @@
                         }
                     });
 
+                    @php
+                        $field_count = 1;
+                    @endphp
+
                     @foreach($variations as $variation)
-                        @php
+                    @php
                         $counter = 1;
-                        @endphp
-                        var {{ $variation->name }} = false;
+                    @endphp
                     $("#{{ $variation->name }}").on("click", function () {
-                        if(!{{ $variation->name }}) {
-                            {{ $variation->name }} = true;
-                            $("#tab").append("<table class='table table-responsive-md'>" +
-                                "<h4>{{ $variation->name }} <span id='rem-var' class='text-danger'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
-                                @foreach($variation->Variation_Value as $value)
-                                    "<tr>" +
-                                "<td>{{ $counter++ }}</td>" +
-                                "<td>{{ $value->value }}</td>" +
-                                "<td><input type='number' placeholder='Price' class='form-control'></td>" +
-                                "</tr>" +
-                                @endforeach
-                                    "</table>");
-                        }
+                        $(this).addClass("d-none");
+                        $("#tab").append("<table class='table table-responsive-md'>" +
+                            "<h4>{{ $variation->name }} <span id='rem-var' data-id='{{ $variation->name }}' class='text-danger'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
+                            @foreach($variation->Variation_Value as $value)
+                                "<tr>" +
+                            "<td>{{ $counter++ }}</td>" +
+                            "<td>{{ $value->value }}</td>" +
+                            "<td><input type='hidden' name='id-{{ $field_count }}' value='{{ $variation->id }}'><input type='number' name='price-{{ $field_count }}' placeholder='Price' class='form-control'><input type='hidden' name='counter' value='{{ $field_count++ }}'></td>" +
+                            "</tr>" +
+                            @endforeach
+                                "</table>");
                     });
                     @endforeach
 
                     $(document).on("click", "#rem-var", function () {
+                        $("#" + $(this).data('id')).removeClass('d-none');
                         $(this).parents().next("table.table").slideUp();
                         $(this).parents("h4").slideUp();
                     });
