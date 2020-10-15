@@ -128,18 +128,21 @@
                         @php
                         $counter = 1;
                         @endphp
+                        var {{ $variation->name }} = false;
                     $("#{{ $variation->name }}").on("click", function () {
-                        //var str = "";
-                        $("#tab").append("<table class='table table-responsive-md'>" +
-                            "<h4>{{ $variation->name }} <span id='rem-var' class='text-danger'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
-                            @foreach($variation->Variation_Value as $value)
-                                "<tr>" +
-                            "<td>{{ $counter++ }}</td>" +
-                            "<td>{{ $value->value }}</td>" +
-                            "<td><input type='number' placeholder='Price' class='form-control'></td>" +
-                            "</tr>" +
-                            @endforeach
-                                "</table>");
+                        if(!{{ $variation->name }}) {
+                            {{ $variation->name }} = true;
+                            $("#tab").append("<table class='table table-responsive-md'>" +
+                                "<h4>{{ $variation->name }} <span id='rem-var' class='text-danger'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
+                                @foreach($variation->Variation_Value as $value)
+                                    "<tr>" +
+                                "<td>{{ $counter++ }}</td>" +
+                                "<td>{{ $value->value }}</td>" +
+                                "<td><input type='number' placeholder='Price' class='form-control'></td>" +
+                                "</tr>" +
+                                @endforeach
+                                    "</table>");
+                        }
                     });
                     @endforeach
 
