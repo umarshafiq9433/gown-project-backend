@@ -21,10 +21,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('/update', 'App\Http\Controllers\CategoryController@update');
         Route::delete('/delete', 'App\Http\Controllers\CategoryController@destroy');
     });
-    Route::group(['prefix'=>'variation'],function (){
-       Route::get('/', 'App\Http\Controllers\VariationController@index');
-       Route::post('/store', 'App\Http\Controllers\VariationController@store');
-       Route::get('/create', 'App\Http\Controllers\VariationController@create');
+    Route::group(['prefix' => 'variation'], function () {
+        Route::get('/', 'App\Http\Controllers\VariationController@index');
+        Route::post('/store', 'App\Http\Controllers\VariationController@store');
+        Route::get('/create', 'App\Http\Controllers\VariationController@create');
         Route::delete('/delete', 'App\Http\Controllers\VariationController@destroy');
+    });
+    Route::group(['prefix' => 'stock'], function () {
+        Route::get('/create', 'App\Http\Controllers\StockController@create');
     });
 });

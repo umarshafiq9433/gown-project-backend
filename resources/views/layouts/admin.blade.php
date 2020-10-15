@@ -203,7 +203,7 @@
                             </a>
                             <ul class="@yield('stock-ul')">
                                 <li>
-                                    <a href="./add_item.html" class="@yield('stock-add-item')">
+                                    <a href="/admin/stock/create" class="@yield('stock-add-item')">
                                         <i class="metismenu-icon"></i>
                                         Add Item
                                     </a>
