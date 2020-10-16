@@ -16,11 +16,10 @@ class CreateAssignmentsTable extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('stock_id')->unsigned();
-            $table->bigInteger('value_id')->unsigned();
-            $table->integer('price');
+            $table->bigInteger('variation_id')->unsigned();
 
             $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade');
-            $table->foreign('value_id')->references('id')->on('values')->onDelete('cascade');
+            $table->foreign('variation_id')->references('id')->on('variations')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateAssignmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variations_assigned');
+        Schema::dropIfExists('assignments');
     }
 }

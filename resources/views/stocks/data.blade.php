@@ -47,7 +47,9 @@
                                 @if($stock->product_type=="Variable")
                                     <select name="" id="" class="form-control">
                                         @foreach($stock->Assignment as $val)
-                                            <option value="">{{ $val->Value->value }}</option>
+                                            @foreach($val->Total as $tot)
+                                                <option value="">{{ $tot->Value->value }}</option>
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 @else
@@ -67,8 +69,8 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Details</a>
-                                        <a class="dropdown-item" href="#">Edit</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
+                                        <a class="dropdown-item" href="/admin/stock/{{ $stock->id }}/edit">Edit</a>
+                                        <a class="dropdown-item delete" href="#"  data-toggle="modal" data-id="{{ $stock->id }}" data-target="#delete">Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -84,4 +86,38 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete this?</p>
+                    <form class="form-group" method="POST" action="/admin/stock/delete">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="id" id="id2" value="">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".delete").on("click", function () {
+                $("#id2").val($(this).data('id'));
+            })
+        })
+    </script>
 @endsection

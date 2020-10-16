@@ -31,10 +31,10 @@ class VariationController extends Controller
         $variation = new Variation();
         $variation->name = $request->input('name');
         $variation->save();
-        for ($i = 1; $i <= $request->input('counts'); $i++) {
+        for ($i = 0; $i < count($request->input('val')); $i++) {
             $value = new Value();
             $value->variation_id = $variation->id;
-            $value->value = $request->input('val-' . $i);
+            $value->value = $request->input('val')[$i];
             if (!$value->save()) {
                 $flag = 1;
             }

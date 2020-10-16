@@ -21,7 +21,8 @@
     <div class="main-card col-md-6 mb-3 mx-auto card">
         <div class="card-body">
             <h5 class="card-title">Add Item details</h5>
-            <form class="needs-validation" method="POST" action="/admin/stock/store" enctype="multipart/form-data" novalidate>
+            <form class="needs-validation" method="POST" action="/admin/stock/store" enctype="multipart/form-data"
+                  novalidate>
                 @csrf
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
@@ -130,7 +131,9 @@
                             $("#variations").slideDown();
                         }
                     });
-
+                        @php
+                            $table_count = 1;
+                        @endphp
                         @foreach($variations as $variation)
                         @php
                             $counter = 1;
@@ -139,22 +142,30 @@
                     $("#{{ $variation->name }}").on("click", function () {
                         $(this).addClass("d-none");
                         $("#tab").append("<table class='table table-responsive-md'>" +
+                            "<input type='hidden' name='variations-{{$table_count}}' value='{{ $variation->id }}'>" +
+                            "<input type='hidden' name='variations-count' value='{{ $table_count }}'>" +
                             "<h4>{{ $variation->name }} <span id='rem-var' data-id='{{ $variation->name }}' class='text-danger {{ $variation->name }}'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
+                            @php
+                            $count = 0;
+                            @endphp
                             @foreach($variation->Value as $value)
                                 "<tr>" +
                             "<td>{{ $counter++ }}</td>" +
                             "<td>{{ $value->value }}</td>" +
-                            "<td><input type='hidden' name='id[]' value='{{ $value->id }}'><input type='number' name='price[]' placeholder='Price' class='form-control'><input type='hidden' name='counter' value='" + count_field++ + "'></td>" +
+                            "<td><input type='hidden' name='count-{{ $table_count }}' value='{{ ++$count }}'><input type='hidden' name='id-{{$table_count}}[]' value='{{ $value->id }}'><input type='number' name='price-{{$table_count}}[]' placeholder='Price' class='form-control'><input type='hidden' name='counter' value='" + count_field++ + "'></td>" +
                             "</tr>" +
                             @endforeach
                                 "</table>");
                     });
+                    @php
+                    $table_count++;
+                    @endphp
                     @endforeach
 
                     $(document).on("click", "#rem-var", function () {
                         $("#" + $(this).data('id')).removeClass('d-none');
-                        $(this).parents().next("table.table").slideUp();
-                        $(this).parents("h4").slideUp();
+                        $(this).parents().next("table.table").remove();
+                        $(this).parents("h4").remove();
                     });
                 })
             </script>

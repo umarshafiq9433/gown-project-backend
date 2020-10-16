@@ -14,7 +14,11 @@ class Assignment extends Model
         return $this->belongsTo('App\Models\Stock');
     }
 
-    public function Value(){
-        return $this->belongsTo('App\Models\Value');
+    public function Variation(){
+        return $this->belongsTo('App\Models\Variation');
+    }
+
+    public function Total(){
+        return $this->hasMany('App\Models\Total');
     }
 }

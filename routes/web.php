@@ -31,5 +31,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/create', 'App\Http\Controllers\StockController@create');
         Route::post('/store', 'App\Http\Controllers\StockController@store');
         Route::get('/', 'App\Http\Controllers\StockController@index');
+        Route::get('/{stock_id}/edit', 'App\Http\Controllers\StockController@edit');
+        Route::put('/{update_id}/update', 'App\Http\Controllers\StockController@update');
+        Route::DELETE('/delete', 'App\Http\Controllers\StockController@destroy');
     });
 });
