@@ -210,7 +210,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="./view_items.html" class="@yield('stock-view-item')">
+                                    <a href="/admin/stock/" class="@yield('stock-view-item')">
                                         <i class="metismenu-icon"></i>
                                         View Items
                                     </a>

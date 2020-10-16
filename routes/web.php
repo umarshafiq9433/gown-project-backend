@@ -30,5 +30,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'stock'], function () {
         Route::get('/create', 'App\Http\Controllers\StockController@create');
         Route::post('/store', 'App\Http\Controllers\StockController@store');
+        Route::get('/', 'App\Http\Controllers\StockController@index');
     });
 });

@@ -9,8 +9,8 @@ class Variation extends Model
 {
     use HasFactory;
 
-    public function Variation_Value(){
-        return $this->hasMany('App\Models\Variation_Value');
+    public function Value(){
+        return $this->hasMany('App\Models\Value');
     }
 
 }

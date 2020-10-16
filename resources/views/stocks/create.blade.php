@@ -21,7 +21,7 @@
     <div class="main-card col-md-6 mb-3 mx-auto card">
         <div class="card-body">
             <h5 class="card-title">Add Item details</h5>
-            <form class="needs-validation" method="POST" action="/admin/stock/store" novalidate>
+            <form class="needs-validation" method="POST" action="/admin/stock/store" enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
@@ -29,6 +29,7 @@
                         <input
                             type="file"
                             id="customFile"
+                            name="image"
                             class="form-control"
                             accept="image/gif, image/jpeg, image/png"
                         />
@@ -42,6 +43,7 @@
                             class="form-control"
                             id="validationCustom02"
                             placeholder="Item Name"
+                            name="name"
                             value=""
                             required
                         />
@@ -51,15 +53,36 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-                        <label for="var">Product Type</label>
-                        <select id="var" class="form-control">
-                            <option value="1">Single</option>
-                            <option value="2">Variable</option>
+                        <label for="cat">Category</label>
+                        <select id="cat" name="category" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                         <div class="valid-feedback">Looks good!</div>
                         <div class="invalid-feedback">Invalid Gown Size</div>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" placeholder="quantity" class="form-control">
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Invalid Gown Size</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="var">Product Type</label>
+                        <select id="var" name="type" class="form-control">
+                            <option value="Single">Single</option>
+                            <option value="Variable">Variable</option>
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Invalid Gown Size</div>
+                    </div>
+                </div>
+
                 <div class="col-12" style="display: none" id="variations">
                     <div class="dropdown my-3" id="drp-con">
                         <button
@@ -87,6 +110,8 @@
                             class="form-control"
                             id="description"
                             placeholder="Description"
+                            name="description"
+                            required
                         ></textarea>
                     </div>
                 </div>
@@ -106,23 +131,20 @@
                         }
                     });
 
-                    @php
-                        $field_count = 1;
-                    @endphp
-
-                    @foreach($variations as $variation)
-                    @php
-                        $counter = 1;
-                    @endphp
+                        @foreach($variations as $variation)
+                        @php
+                            $counter = 1;
+                        @endphp
+                    var count_field = 1;
                     $("#{{ $variation->name }}").on("click", function () {
                         $(this).addClass("d-none");
                         $("#tab").append("<table class='table table-responsive-md'>" +
-                            "<h4>{{ $variation->name }} <span id='rem-var' data-id='{{ $variation->name }}' class='text-danger'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
-                            @foreach($variation->Variation_Value as $value)
+                            "<h4>{{ $variation->name }} <span id='rem-var' data-id='{{ $variation->name }}' class='text-danger {{ $variation->name }}'><i class='fa fa-minus-circle float-right'></i></span></h4>" +
+                            @foreach($variation->Value as $value)
                                 "<tr>" +
                             "<td>{{ $counter++ }}</td>" +
                             "<td>{{ $value->value }}</td>" +
-                            "<td><input type='hidden' name='id-{{ $field_count }}' value='{{ $variation->id }}'><input type='number' name='price-{{ $field_count }}' placeholder='Price' class='form-control'><input type='hidden' name='counter' value='{{ $field_count++ }}'></td>" +
+                            "<td><input type='hidden' name='id[]' value='{{ $value->id }}'><input type='number' name='price[]' placeholder='Price' class='form-control'><input type='hidden' name='counter' value='" + count_field++ + "'></td>" +
                             "</tr>" +
                             @endforeach
                                 "</table>");

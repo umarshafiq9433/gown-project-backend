@@ -38,7 +38,7 @@
                         <tr>
                             <td>{{ $counter }}</td>
                             <td>{{ $variation->name }}</td>
-                            <td>@foreach($variation->Variation_Value as $value) {{ $value->value }}, @endforeach</td>
+                            <td>@foreach($variation->Value as $value) {{ $value->value }}, @endforeach</td>
                             <td>
                                 <div class="dropdown">
                                     <button

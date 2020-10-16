@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVariationValuesTable extends Migration
+class CreateValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVariationValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('variation_values', function (Blueprint $table) {
+        Schema::create('values', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('variation_id')->unsigned();
             $table->string('value');

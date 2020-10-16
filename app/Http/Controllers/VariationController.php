@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Value;
 use App\Models\Variation;
 use App\Models\Variation_Value;
 use Illuminate\Http\Request;
@@ -31,10 +32,10 @@ class VariationController extends Controller
         $variation->name = $request->input('name');
         $variation->save();
         for ($i = 1; $i <= $request->input('counts'); $i++) {
-            $variation_value = new Variation_Value();
-            $variation_value->variation_id = $variation->id;
-            $variation_value->value = $request->input('val-' . $i);
-            if (!$variation_value->save()) {
+            $value = new Value();
+            $value->variation_id = $variation->id;
+            $value->value = $request->input('val-' . $i);
+            if (!$value->save()) {
                 $flag = 1;
             }
         }

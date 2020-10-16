@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Variation_Value extends Model
+class Value extends Model
 {
-    protected $table = "variation_values";
     use HasFactory;
 
+    public function Assignment(){
+        return $this->hasMany('App\Models\Assignment');
+    }
+
     public function Variation(){
-        return $this->belongsTo('App\Models\Variations');
+        return $this->belongsTo('App\Models\Variation');
     }
 }
