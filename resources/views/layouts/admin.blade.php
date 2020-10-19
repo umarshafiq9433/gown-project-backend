@@ -119,6 +119,15 @@
                                         >
                                             Settings
                                         </button>
+                                        <a href="/logout">
+                                            <button
+                                                type="button"
+                                                tabindex="0"
+                                                class="dropdown-item"
+                                            >
+                                                Logout
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +280,7 @@
                             </a>
                             <ul class="@yield('consultant-ul')">
                                 <li>
-                                    <a href="./add_consultant.html" class="@yield('consultant-add-consultant')">
+                                    <a href="/admin/consultant/create" class="@yield('consultant-add-consultant')">
                                         <i class="metismenu-icon"></i>
                                         Add Consultant
                                     </a>
@@ -283,7 +292,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="./view_consultants.html" class="@yield('consultant-view-consultant')">
+                                    <a href="/admin/consultant/" class="@yield('consultant-view-consultant')">
                                         <i class="metismenu-icon"></i>
                                         View Consultants
                                     </a>
@@ -381,7 +390,7 @@
 
                         <li class="app-sidebar__heading">Settings</li>
                         <li>
-                            <a href="./gen_settings.html" class="@yield('setting')">
+                            <a href="/admin/setting" class="@yield('setting')">
                                 <i class="metismenu-icon pe-7s-diamond"> </i>General
                             </a>
                         </li>

@@ -33,7 +33,7 @@ class StockController extends Controller
 
             $stock = Stock::create([
                 'name' => $request->input('name'),
-                'image' => "uploads\stock\\" . $name,
+                'image' => "uploads/stock/" . $name,
                 'product_type' => $request->input('type'),
                 'category_id' => $request->input('category'),
                 'description' => $request->input('description'),
@@ -45,8 +45,6 @@ class StockController extends Controller
                         $assigned = new Assignment();
                         $assigned->stock_id = $stock->id;
                         $assigned->variation_id = $request->input('variations-' . $i);
-                        $assigned->save();
-
                         if ($assigned->save()) {
                             for ($j = 0; $j < count($request->input('id-' . $i)); $j++) {
                                 if ($request->input('price-' . $i)[$j] != null) {
@@ -95,7 +93,7 @@ class StockController extends Controller
 
             $stock = Stock::where('id', $id)->update([
                 'name' => $request->input('name'),
-                'image' => "uploads\stock\\" . $name,
+                'image' => "uploads/stock/" . $name,
                 'product_type' => $request->input('type'),
                 'category_id' => $request->input('category'),
                 'description' => $request->input('description'),
